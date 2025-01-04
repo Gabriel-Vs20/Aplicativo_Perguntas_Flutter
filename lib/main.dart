@@ -12,7 +12,8 @@ class PerguntaApp extends StatelessWidget{
 
       return MaterialApp(
 
-      home: Text('App de Perguntas! ')
+      home: Text('App de Perguntas! '),
+      color: Colors.green,
 
     );
 
