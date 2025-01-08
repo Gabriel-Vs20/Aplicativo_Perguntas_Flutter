@@ -19,6 +19,7 @@ class _PerguntaAppState extends State <PerguntaApp>{
   void responder(){
     setState(() {
       perguntasSelecionadas++;
+      print(perguntasSelecionadas);
     });
   }
 
@@ -45,15 +46,15 @@ class _PerguntaAppState extends State <PerguntaApp>{
         body: Column(
           children: <Widget> [
             Questao(perguntas[perguntasSelecionadas]),
-            Respostas(respostas),
-            Respostas(respostasDois),
-            Respostas(respostasTres),
+            Respostas(respostas, responder),
+            Respostas(respostasDois, responder),
+            Respostas(respostasTres, responder),
           ],
 
           
         ),
 
-        backgroundColor: const Color.fromARGB(255, 38, 60, 62),
+        backgroundColor: const Color.fromARGB(255, 249, 249, 249),
       ),
 
     );
