@@ -1,22 +1,49 @@
 import 'package:flutter/material.dart';
+import './questao.dart';
+import './respostas.dart';
 
 main (){
   runApp(PerguntaApp());
 
 }
 
+class _PerguntaAppState extends State <PerguntaApp>{
 
-class PerguntaApp extends StatelessWidget{
+
+  var perguntasSelecionadas = 0;
+
+  var respostas = 'Resposta 1';
+  var respostasDois = 'Resposta 2';
+  var respostasTres = 'Resposta 3';
+  
+
+  void responder(){
+    setState(() {
+      perguntasSelecionadas++;
+      print(perguntasSelecionadas);
+    });
+  }
 
   @override
   Widget build(BuildContext context){
 
-   List<String> perguntas = [
-      'Qual é a sua cor favorita?',
-      'Qual o seu animal favorito?'
+   final perguntas = [
+    {
+        'texto' : 'Qual é a sua cor favorita?',
+        'resposta' : ['Preto', 'Vermelho', 'Verde', 'Branco'],
+    },
+    {
+      'texto' : 'Qual o seu animal favorito?',
+      'resposta' : ['Coelho', 'Cobra', 'Elefante', 'Leão'],
+    }
       
     ];
+    List <String> respostas = perguntas[perguntasSelecionadas].cast() ['resposta'];
+    List <Widget> widgets = [];
 
+    for (String textoResp in respostas){
+    widgets.add (Respostas (textoResp, responder));
+    }
       return MaterialApp(
 
       home: Scaffold(
@@ -30,31 +57,27 @@ class PerguntaApp extends StatelessWidget{
         ),
         body: Column(
           children: <Widget> [
-            Text(perguntas.elementAt(0)),
-            ElevatedButton(
-              child: Text('Resposta 1'),
-              onPressed: null,
-            ),
-            ElevatedButton(
-              child: Text('Resposta 1'),
-              onPressed: null,
-            ),
-            ElevatedButton(
-              child: Text('Resposta 1'),
-              onPressed: null,
-            ),
+            Questao(perguntas[perguntasSelecionadas]['texto'].toString()),
+            ...widgets,
+            //... pega todos os elementos da lista;
           ],
 
           
         ),
 
-        backgroundColor: const Color.fromARGB(255, 38, 60, 62),
+        backgroundColor: const Color.fromARGB(255, 249, 249, 249),
       ),
 
     );
 
   }
 
+}
 
+class PerguntaApp extends StatefulWidget{
+
+    _PerguntaAppState createState(){
+    return _PerguntaAppState();
+   }
 
 }
