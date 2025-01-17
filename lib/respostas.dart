@@ -6,7 +6,21 @@ class Respostas extends StatelessWidget {
 
     final void Function() onSelect;
 
-    Respostas(this.respostas, this.onSelect);
+    final List<String> resultadoFinal;
+
+    Respostas(this.respostas, this.onSelect, this.resultadoFinal);
+
+    void retornarResultado(){
+      resultadoFinal.add(respostas);
+    }
+
+
+    void encapsular(){
+      onSelect();
+      retornarResultado();
+      print(resultadoFinal);
+    }
+
 
   @override
   Widget build(BuildContext context) {
@@ -48,16 +62,16 @@ class Respostas extends StatelessWidget {
     }
 
 
-    return Container(
+    return SizedBox(
       width: double.infinity,
       child: ElevatedButton(
         style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(backgroundColor),
-          foregroundColor: MaterialStateProperty.all(foregroundColor)
+          backgroundColor: WidgetStateProperty.all(backgroundColor),
+          foregroundColor: WidgetStateProperty.all(foregroundColor)
         ),
-        child: Text(respostas),
 
-        onPressed: onSelect,
+        onPressed: encapsular,
+        child: Text(respostas),
       ),
       );
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import './questao.dart';
 import './respostas.dart';
+import './resultado.dart';
 
 main (){
   runApp(PerguntaApp());
@@ -23,6 +24,8 @@ class _PerguntaAppState extends State <PerguntaApp>{
     }
       
     ];
+
+    final List<String> resultadoFinal = [];
   
   void responder(){
     setState(() {
@@ -38,6 +41,8 @@ class _PerguntaAppState extends State <PerguntaApp>{
     });
   }
 
+
+
   bool get temPerguntaSelecionada
   {
     return perguntasSelecionadas < perguntas.length;
@@ -50,7 +55,7 @@ class _PerguntaAppState extends State <PerguntaApp>{
     List <Widget> widgets = [];
 
       for (String textoResp in respostas){
-      widgets.add(Respostas (textoResp, responder));
+      widgets.add(Respostas (textoResp, responder, resultadoFinal));
      }
   
       return MaterialApp(
@@ -70,42 +75,7 @@ class _PerguntaAppState extends State <PerguntaApp>{
             ...widgets,
             //... pega todos os elementos da lista;
           ],
-        ): Column(
-          children: [
-            Padding(
-            padding: EdgeInsets.only(top: 40.0),
-            child: Text('Parabéns, você chegou ao fim das perguntas. Clique no botão abaixo para recomeçar',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-            color: Colors.blue,
-            fontSize: 25,
-            ),),
-            ),
-            
-            
-            Align(
-             alignment: Alignment.center, 
-              child: Padding(
-              padding: EdgeInsets.only(top: 20.0),
-                child: ElevatedButton(
-                onPressed: recomecar,
-                  child: Text('Recomeçar'),
-                  style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.red,
-                  foregroundColor: Colors.white,
-                  minimumSize: Size(250, 75)
-                )
-
-              
-
-             ),
-             ),
-            )
-           
-          ],
-        ),
-
-        backgroundColor: const Color.fromARGB(255, 249, 249, 249),
+        ): ResultadoFinal(recomecar, resultadoFinal)
       ),
 
     );
@@ -115,8 +85,11 @@ class _PerguntaAppState extends State <PerguntaApp>{
 }
 
 class PerguntaApp extends StatefulWidget{
+  const PerguntaApp({super.key});
 
-    _PerguntaAppState createState(){
+
+    @override
+  _PerguntaAppState createState(){
     return _PerguntaAppState();
    }
 
